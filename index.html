@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЭМЕРАЛЬД · полное меню ресторана</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e8f5ed 0%, #ffffff 100%);
+            color: #1a1a1a;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Шапка */
+        header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #cde0d6;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+        }
+        .logo i {
+            color: #1f6e41;
+            margin-right: 10px;
+        }
+        .logo span {
+            font-weight: 600;
+            color: #105a34;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2b2b2b;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+        nav a:hover {
+            color: #1a6e41;
+            border-bottom-color: #1a6e41;
+        }
+
+        /* Герой */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: linear-gradient(145deg, #ddf0e6 0%, #ffffff 100%);
+            border-radius: 0 0 80px 80px;
+            margin-bottom: 40px;
+        }
+        .hero h1 {
+            font-size: 3.6rem;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            color: #0f281c;
+        }
+        .hero h1 i {
+            color: #1f6e41;
+            margin: 0 12px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 14px auto 24px;
+            color: #3d5a4a;
+            font-weight: 300;
+        }
+
+        section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: -0.2px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #0f281c;
+        }
+        .section-title i {
+            color: #1f6e41;
+            margin-right: 14px;
+        }
+
+        /* ПОЛНОЕ МЕНЮ */
+        .menu-full {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 50px;
+            padding: 40px 44px;
+            border: 1px solid #cde0d6;
+            box-shadow: 0 8px 30px rgba(31, 110, 65, 0.05);
+        }
+
+        .menu-category {
+            margin-bottom: 36px;
+        }
+        .menu-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-category h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #0f281c;
+            border-bottom: 2px solid #ddf0e6;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+        .menu-category h3 i {
+            color: #1f6e41;
+            margin-right: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 6px 0;
+            border-bottom: 1px dashed #e0ece4;
+            gap: 16px;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item .name {
+            font-size: 0.95rem;
+            color: #2b2b2b;
+            flex: 1;
+        }
+        .menu-item .name .sub {
+            font-size: 0.8rem;
+            color: #6b6b6b;
+            display: block;
+            font-weight: 300;
+        }
+        .menu-item .weight {
+            font-size: 0.8rem;
+            color: #888;
+            white-space: nowrap;
+            margin-right: 12px;
+        }
+        .menu-item .price {
+            font-weight: 600;
+            color: #1f6e41;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        .menu-note {
+            font-size: 0.85rem;
+            color: #3d5a4a;
+            background: #e8f5ed;
+            padding: 14px 20px;
+            border-radius: 30px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Бизнес-ланчи */
+        .lunch-short {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0 10px;
+        }
+        .lunch-short-item {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 30px;
+            padding: 16px 20px;
+            text-align: center;
+            border: 1px solid #cde0d6;
+        }
+        .lunch-short-item .lunch-price {
+            font-weight: 700;
+            color: #1f6e41;
+            font-size: 1.2rem;
+        }
+        .lunch-short-item .lunch-desc {
+            font-size: 0.8rem;
+            color: #4d6b59;
+            margin-top: 4px;
+        }
+
+        /* О нас */
+        .about-mini {
+            background: rgba(232, 245, 237, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 30px 36px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            border: 1px solid #cde0d6;
+        }
+        .about-mini-text {
+            flex: 2 1 300px;
+        }
+        .about-mini-text h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #0f281c;
+        }
+        .about-mini-text p {
+            color: #2b4a3a;
+            margin-top: 8px;
+        }
+        .about-mini-icons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .about-mini-icons span {
+            background: #ffffff;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #cde0d6;
+        }
+        .about-mini-icons i {
+            color: #1f6e41;
+            margin-right: 6px;
+        }
+
+        /* АТМОСФЕРА В КАДРЕ — ГАЛЕРЕЯ */
+        .atmosphere-gallery {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 50px;
+            padding: 40px 44px;
+            border: 1px solid #cde0d6;
+            box-shadow: 0 8px 30px rgba(31, 110, 65, 0.05);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .gallery-item {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #cde0d6;
+            background: #fff;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(31, 110, 65, 0.12);
+            border-color: #1f6e41;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        .gallery-item .photo-caption {
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            color: #3d5a4a;
+            text-align: center;
+            background: #f8fbf9;
+            border-top: 1px solid #e0ece4;
+            font-style: italic;
+        }
+
+        /* Контакты */
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            padding: 40px 44px;
+            border-radius: 60px;
+            box-shadow: 0 8px 30px rgba(31, 110, 65, 0.05);
+            border: 1px solid #cde0d6;
+        }
+        .contact-info {
+            flex: 1 1 300px;
+        }
+        .contact-info h3 {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #0f281c;
+        }
+        .contact-info p {
+            margin: 16px 0;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #2b4a3a;
+        }
+        .contact-info i {
+            width: 28px;
+            color: #1f6e41;
+            font-size: 1.2rem;
+        }
+        .contact-info .tags {
+            margin-top: 24px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .contact-info .tags span {
+            background: #e8f5ed;
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid #cde0d6;
+        }
+
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid #cde0d6;
+            padding: 30px 0;
+            text-align: center;
+            color: #3d5a4a;
+        }
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            font-size: 1.6rem;
+            margin-bottom: 14px;
+        }
+        .socials a {
+            color: #2b4a3a;
+            transition: 0.2s;
+        }
+        .socials a:hover {
+            color: #1f6e41;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 700px) {
+            .header-inner { flex-direction: column; gap: 16px; }
+            nav { justify-content: center; gap: 14px; }
+            .hero h1 { font-size: 2.4rem; }
+            .menu-full { padding: 24px 18px; }
+            .atmosphere-gallery { padding: 24px 18px; }
+            .contact-row { padding: 24px; }
+            .section-title { font-size: 1.8rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+            .gallery-item img { height: 180px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .menu-item { flex-wrap: wrap; }
+            .menu-item .weight { margin-right: 0; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item img { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="logo">
+            <i class="fas fa-gem"></i> <span>ЭМЕРАЛЬД</span>
+        </div>
+        <nav>
+            <a href="#full-menu">Меню</a>
+            <a href="#lunch">Бизнес-ланчи</a>
+            <a href="#about">О нас</a>
+            <a href="#atmosphere">Атмосфера в кадре</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="hero">
+        <div class="container">
+            <h1>
+                <i class="fas fa-gem"></i> 
+                Ресторан ЭМЕРАЛЬД
+                <i class="fas fa-gem"></i>
+            </h1>
+            <p>г. Елец, ул. Радиотехническая, д.10а · Пн–Чт, Вс 11:00–23:00, Пт–Сб 11:00–01:00</p>
+        </div>
+    </div>
+
+    <!-- ПОЛНОЕ МЕНЮ -->
+    <section id="full-menu">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-utensils"></i> Полное меню</h2>
+            
+            <div class="menu-full">
+                <!-- ЗАКУСКИ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-bread"></i> Закуски</h3>
+                    <div class="menu-item"><span class="name">Овощное ассорти с соусом дзадзики и хлебом</span><span class="weight">330г</span><span class="price">700 ₽</span></div>
+                    <div class="menu-item"><span class="name">Мясное ассорти <span class="sub">(язык говяжий, рулет куриный, буженина, колбаса праздничная)</span></span><span class="weight">280г</span><span class="price">1050 ₽</span></div>
+                    <div class="menu-item"><span class="name">Ассорти из сала <span class="sub">(подаётся с хреном и горчицей)</span></span><span class="weight">160г</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Сырное плато</span><span class="weight">250г</span><span class="price">1250 ₽</span></div>
+                    <div class="menu-item"><span class="name">Сыр рассольный с зеленью</span><span class="weight">150г</span><span class="price">470 ₽</span></div>
+                    <div class="menu-item"><span class="name">Фруктовое ассорти <span class="sub">(сезонные фрукты)</span></span><span class="weight">500г</span><span class="price">900 ₽</span></div>
+                    <div class="menu-item"><span class="name">Тарталетки с красной икрой / с лососем</span><span class="weight">170г</span><span class="price">410 ₽</span></div>
+                    <div class="menu-item"><span class="name">Жареный сулугуни с брусничным соусом</span><span class="weight">180г</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Паштет из куриной печени с грушей</span><span class="weight">200г</span><span class="price">450 ₽</span></div>
+                    <div class="menu-item"><span class="name">Рыбное ассорти <span class="sub">(форель с/с, масляная, тунец)</span></span><span class="weight">250г</span><span class="price">1050 ₽</span></div>
+                    <div class="menu-item"><span class="name">Селедочка на бородинском хлебе</span><span class="weight">240г</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Креветки с соусом тартар</span><span class="weight">150/30г</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Медии в соусе блю-чиз</span><span class="weight">230г</span><span class="price">700 ₽</span></div>
+                    <div class="menu-item"><span class="name">Сет на компанию <span class="sub">(креветки темпура, кольца кальмара, луковые кольца, чипсы из лаваша, чесночные гренки,сырные палочки, соус дзадзики, соус сырный)</span></span><span class="weight">450г</span><span class="price">1400 ₽</span></div>
+                    <div class="menu-item"><span class="name">Хлебная корзина</span><span class="weight">120г</span><span class="price">120 ₽</span></div>
+                </div>
+
+                <!-- САЛАТЫ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-leaf"></i> Салаты</h3>
+                    <div class="menu-item"><span class="name">Цезарь с курицей</span><span class="weight">210г</span><span class="price">590 ₽</span></div>
+                    <div class="menu-item"><span class="name">Цезарь с лососем</span><span class="weight">210г</span><span class="price">690 ₽</span></div>
+                    <div class="menu-item"><span class="name">Салат с хрустящим баклажаном и соусом наршараб</span><span class="weight">220г</span><span class="price">590 ₽</span></div>
+                    <div class="menu-item"><span class="name">Нежность <span class="sub">(огурец свежий, куриное филе, чернослив, орех грецкий, майонез)</span></span><span class="weight">200г</span><span class="price">610 ₽</span></div>
+                    <div class="menu-item"><span class="name">Салат с тунцом <span class="sub">(тунец, микс салата, картофель по-деревенски, стручковая фасоль, томаты черри, яйцо перепелиное, лук фри, соус айоли)</span></span><span class="weight">240г</span><span class="price">670 ₽</span></div>
+                    <div class="menu-item"><span class="name">Салат с угрем и чукой <span class="sub">(угорь в соусе унаги, чука, киноа, микс салата, огурец, кунжут)</span></span><span class="weight">240г</span><span class="price">790 ₽</span></div>
+                </div>
+
+                <!-- СУПЫ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-utensil-spoon"></i> Супы</h3>
+                    <div class="menu-item"><span class="name">Тыквенный крем-суп с креветкой</span><span class="weight">280г</span><span class="price">400 ₽</span></div>
+                    <div class="menu-item"><span class="name">Крем-суп с белыми грибами</span><span class="weight">300г</span><span class="price">470 ₽</span></div>
+                    <div class="menu-item"><span class="name">Крем-суп бель пасо</span><span class="weight">270г</span><span class="price">470 ₽</span></div>
+                    <div class="menu-item"><span class="name">Борщ с пампушками и салом</span><span class="weight">300г/20г/15г</span><span class="price">700 ₽</span></div>
+                    <div class="menu-item"><span class="name">Сборная солянка мясная <span class="sub">(говядина, бекон, колбаса копченая)</span></span><span class="weight">300г</span><span class="price">600 ₽</span></div>
+                </div>
+
+                <!-- ПАСТЫ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-utensils"></i> Пасты</h3>
+                    <div class="menu-item"><span class="name">Паста со шпинатом и креветками</span><span class="weight">320г</span><span class="price">520 ₽</span></div>
+                    <div class="menu-item"><span class="name">Паста с белыми грибами</span><span class="weight">320г</span><span class="price">600 ₽</span></div>
+                </div>
+
+                <!-- ГОРЯЧЕЕ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-fire"></i> Горячее</h3>
+                    <div class="menu-item"><span class="name">Шипящая сковородка с курицей и овощами</span><span class="weight">340г</span><span class="price">590 ₽</span></div>
+                    <div class="menu-item"><span class="name">Шипящая сковородка со свининой и овощами</span><span class="weight">340г</span><span class="price">630 ₽</span></div>
+                    <div class="menu-item"><span class="name">Семга со спаржей в сливочном соусе</span><span class="weight">290г</span><span class="price">800 ₽</span></div>
+                    <div class="menu-item"><span class="name">Медальоны «Эмеральд» <span class="sub">(сочная свинина, картофельное пюре, соус грибной)</span></span><span class="weight">340г</span><span class="price">850 ₽</span></div>
+                    <div class="menu-item"><span class="name">Индейка с фруктами и овощами в сладком соусе</span><span class="weight">310г</span><span class="price">750 ₽</span></div>
+                </div>
+
+                <!-- ГАРНИРЫ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-utensils"></i> Гарниры</h3>
+                    <div class="menu-item"><span class="name">Картофель фри</span><span class="weight">150г</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Картофель по-деревенски</span><span class="weight">150г</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Киноа</span><span class="weight">130г</span><span class="price">170 ₽</span></div>
+                    <div class="menu-item"><span class="name">Рис со сливками и пармезаном</span><span class="weight">190г</span><span class="price">210 ₽</span></div>
+                    <div class="menu-item"><span class="name">Брокколи</span><span class="weight">170г</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Картофель фри из батата</span><span class="weight">150г</span><span class="price">300 ₽</span></div>
+                </div>
+
+                <!-- АНТИПИЦЦА -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-pizza-slice"></i> Антипицца</h3>
+                    <div class="menu-item"><span class="name">С грушей и горгонзолой</span><span class="weight">310г</span><span class="price">590 ₽</span></div>
+                    <div class="menu-item"><span class="name">С курицей и грибами</span><span class="weight">300г</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Со шпинатом и креветками</span><span class="weight">260г</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Марго</span><span class="weight">240г</span><span class="price">450 ₽</span></div>
+                </div>
+
+                <!-- МАНГАЛ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-fire"></i> Мангал</h3>
+                    <div class="menu-item"><span class="name">Шашлык из свиной шеи</span><span class="weight">250г</span><span class="price">630 ₽</span></div>
+                    <div class="menu-item"><span class="name">Антрекот из свинины</span><span class="weight">250г</span><span class="price">590 ₽</span></div>
+                    <div class="menu-item"><span class="name">Шашлык из куриной грудки</span><span class="weight">250г</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Куриные крылышки на мангале</span><span class="weight">190г</span><span class="price">500 ₽</span></div>
+                    <div class="menu-item"><span class="name">Шашлык кусковой из бараньей мякоти</span><span class="weight">250г</span><span class="price">800 ₽</span></div>
+                    <div class="menu-item"><span class="name">Каре из баранины</span><span class="weight">210г</span><span class="price">900 ₽</span></div>
+                    <div class="menu-item"><span class="name">Люля-кебаб из курицы</span><span class="weight">180г</span><span class="price">470 ₽</span></div>
+                    <div class="menu-item"><span class="name">Стейк лосося</span><span class="weight">200г</span><span class="price">1300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Дорадо</span><span class="weight">240г</span><span class="price">850 ₽</span></div>
+                    <div class="menu-item"><span class="name">Стейк из телятины</span><span class="weight">300г</span><span class="price">1500 ₽</span></div>
+                    <div class="menu-item"><span class="name">Шампиньоны на мангале</span><span class="weight">200г</span><span class="price">450 ₽</span></div>
+                    <div class="menu-item"><span class="name">Овощи на мангале</span><span class="weight">270г</span><span class="price">350 ₽</span></div>
+                </div>
+
+                <!-- ДЕТСКОЕ МЕНЮ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-child"></i> Детское меню</h3>
+                    <div class="menu-item"><span class="name">Суп куриный с домашней лапшой</span><span class="weight">250г</span><span class="price">270 ₽</span></div>
+                    <div class="menu-item"><span class="name">Бургер джуниор с куриной котлетой и картофелем фри</span><span class="weight">270г</span><span class="price">420 ₽</span></div>
+                    <div class="menu-item"><span class="name">Куриные наггетсы с овощами</span><span class="weight">235г</span><span class="price">330 ₽</span></div>
+                    <div class="menu-item"><span class="name">Картофель фри</span><span class="weight">150г</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Куриные котлетки с картофельным пюре</span><span class="weight">150г/100г</span><span class="price">400 ₽</span></div>
+                </div>
+
+                <!-- ДЕСЕРТЫ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-cake"></i> Десерты</h3>
+                    <div class="menu-item"><span class="name">Мороженое с сиропом</span><span class="weight">150г</span><span class="price">250 ₽</span></div>
+                </div>
+
+                <!-- НАПИТКИ -->
+                <div class="menu-category">
+                    <h3><i class="fas fa-cocktail"></i> Безалкогольные коктейли</h3>
+                    <div class="menu-item"><span class="name">Мохито классический</span><span class="weight">300мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Мохито клубничный</span><span class="weight">300мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Пина колада</span><span class="weight">300мл</span><span class="price">370 ₽</span></div>
+                    <div class="menu-item"><span class="name">Фил гуд <span class="sub">(клубничное пюре, кокосовый сироп, сок лимона, содовая, лёд)</span></span><span class="weight">300мл</span><span class="price">330 ₽</span></div>
+                    <div class="menu-item"><span class="name">Санрайз <span class="sub">(апельсиновый сок, ананасовый сок, чай каркаде, имбирный сироп, мёд, лимонный сок, лёд)</span></span><span class="weight">300мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Секс на пляже <span class="sub">(клюквенный морс, ананасовый сок, сироп гренадин)</span></span><span class="weight">300мл</span><span class="price">360 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-lemon"></i> Лимонады</h3>
+                    <div class="menu-item"><span class="name">Мохито классический</span><span class="weight">1000мл</span><span class="price">700 ₽</span></div>
+                    <div class="menu-item"><span class="name">Санрайз <span class="sub">(апельсиновый сок, ананасовый сок, чай каркаде, имбирный сироп, мёд, лимонный сок, лёд)</span></span><span class="weight">1000мл</span><span class="price">750 ₽</span></div>
+                    <div class="menu-item"><span class="name">Огуречный лимонад <span class="sub">(огурец, лимонный сок, сахарный сироп, мёд, лёд)</span></span><span class="weight">1000мл</span><span class="price">700 ₽</span></div>
+                    <div class="menu-item"><span class="name">Клубничный лимонад <span class="sub">(клубничный сироп, клубника, мята, лайм содовая, лёд)</span></span><span class="weight">1000мл</span><span class="price">750 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-bottle-water"></i> Газированные напитки</h3>
+                    <div class="menu-item"><span class="name">Добрый кола</span><span class="weight">1000мл</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Добрый апельсин</span><span class="weight">1000мл</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Добрый лимон-лайм</span><span class="weight">1000мл</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Rich индиан тоник</span><span class="weight">1000мл</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Лимонад в стекле</span><span class="weight">500мл</span><span class="price">250 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-blender"></i> Молочные коктейли</h3>
+                    <div class="menu-item"><span class="name">Малиновый</span><span class="weight">300мл</span><span class="price">300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Клубничный</span><span class="weight">300мл</span><span class="price">300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Банановый</span><span class="weight">300мл</span><span class="price">300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Ванильный</span><span class="weight">300мл</span><span class="price">300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Шоколадный</span><span class="weight">300мл</span><span class="price">300 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-glass-whiskey"></i> Холодные напитки</h3>
+                    <div class="menu-item"><span class="name">Сок в ассортименте</span><span class="weight">250мл/1000мл</span><span class="price">100/300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Вода негазированная</span><span class="weight">500мл</span><span class="price">200 ₽</span></div>
+                    <div class="menu-item"><span class="name">Вода минеральная Боржоми</span><span class="weight">500мл</span><span class="price">250 ₽</span></div>
+                    <div class="menu-item"><span class="name">Ягодный смузи с мороженым</span><span class="weight">250мл</span><span class="price">330 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-mug-hot"></i> Горячие напитки</h3>
+                    <div class="menu-item"><span class="name">Чай чёрный</span><span class="weight">800мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай чёрный пакетированный</span><span class="weight">200мл</span><span class="price">100 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай зелёный</span><span class="weight">800мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай зелёный пакетированный</span><span class="weight">200мл</span><span class="price">100 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай чёрный с бергамотом</span><span class="weight">800мл</span><span class="price">400 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай облепиховый</span><span class="weight">800мл</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай с чёрной смородиной, миндалём и апельсином</span><span class="weight">800мл</span><span class="price">570 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай ягодный</span><span class="weight">800мл</span><span class="price">550 ₽</span></div>
+                    <div class="menu-item"><span class="name">Чай голубая масала</span><span class="weight">800мл</span><span class="price">600 ₽</span></div>
+                    <div class="menu-item"><span class="name">Кофе американо</span><span class="weight">120мл</span><span class="price">150 ₽</span></div>
+                    <div class="menu-item"><span class="name">Кофе капучино</span><span class="weight">180мл</span><span class="price">170 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-wine-glass-alt"></i> Алкогольные коктейли</h3>
+                    <div class="menu-item"><span class="name">Мохито классический</span><span class="weight">300мл</span><span class="price">390 ₽</span></div>
+                    <div class="menu-item"><span class="name">Мохито клубничный</span><span class="weight">300мл</span><span class="price">390 ₽</span></div>
+                    <div class="menu-item"><span class="name">Пина колада <span class="sub">(ром, сливки, сироп кокосовый, сок ананасовый)</span></span><span class="weight">300мл</span><span class="price">450 ₽</span></div>
+                    <div class="menu-item"><span class="name">Секс на пляже <span class="sub">(ром, морс клюквенный, сок ананасовый, сироп гренадин)</span></span><span class="weight">300мл</span><span class="price">430 ₽</span></div>
+                    <div class="menu-item"><span class="name">Кровавая Мери <span class="sub">(сок томатный, водка, лёд, лимонный сок, соль, перец, сельдерей, соус Табаско)</span></span><span class="weight">300мл</span><span class="price">430 ₽</span></div>
+                    <div class="menu-item"><span class="name">Зелёная фея <span class="sub">(текила, абсент, водка, ром белый, сироп блю кюрасао, ликер,лимонный сок, вода газированная, лёд)</span></span><span class="weight">300мл</span><span class="price">450 ₽</span></div>
+                    <div class="menu-item"><span class="name">Май Тай <span class="sub">(ром белый, ром чёрный, ликёр, сироп миндальный, сок лимонный, сок ананасовый, сок апельсиновый, лёд)</span></span><span class="weight">300мл</span><span class="price">450 ₽</span></div>
+                    <div class="menu-item"><span class="name">Отвёртка <span class="sub">(водка, сок апельсиновый, сок ананасовый, лёд)</span></span><span class="weight">250мл</span><span class="price">420 ₽</span></div>
+                    <div class="menu-item"><span class="name">Виски-кола</span><span class="weight">250мл</span><span class="price">400 ₽</span></div>
+                    <div class="menu-item"><span class="name">Блю кюрасао</span><span class="weight">150мл</span><span class="price">320 ₽</span></div>
+                    <div class="menu-item"><span class="name">Апероль-шприц <span class="sub">(апероль, игристое вино, тоник)</span></span><span class="weight">150мл</span><span class="price">300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Космополитен <span class="sub">(водка, ликер, сок ананасовый, сок клюквенный, лед, сок лайма, лёд)</span></span><span class="weight">150/300мл</span><span class="price">280/350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Дайкири <span class="sub">(светлый ром, лайм, коричневый сахар, лёд)</span></span><span class="weight">150мл</span><span class="price">300 ₽</span></div>
+                    <div class="menu-item"><span class="name">Гренландия <span class="sub">(джин, вермут, ликёр, лимонный сок, лёд)</span></span><span class="weight">150мл</span><span class="price">280 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-glass-shot"></i> Шоты</h3>
+                    <div class="menu-item"><span class="name">Б-52 <span class="sub">(кофейный ликёр, сливочный ликёр, апельсиновый ликёр)</span></span><span class="weight">50мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Б-53 <span class="sub">(самбука, абсент, сливочный ликёр, сироп гренадин)</span></span><span class="weight">50мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Медуза <span class="sub">(кокосовый ликёр, апельсиновый ликёр, белый ром, сливочный ликёр, голубой ликёр)</span></span><span class="weight">50мл</span><span class="price">350 ₽</span></div>
+                    <div class="menu-item"><span class="name">Боярский <span class="sub">(сироп гренадин, водка, соус Табаско)</span></span><span class="weight">50мл</span><span class="price">220 ₽</span></div>
+                    <div class="menu-item"><span class="name">Опухоль мозга <span class="sub">(ликёр персиковый, ликёр бейлис, сироп гренадин)</span></span><span class="weight">40мл</span><span class="price">350 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-fire"></i> Сеты (4×50мл)</h3>
+                    <div class="menu-item"><span class="name">Кровавый апельсин <span class="sub">(водка, апельсиновый сок, сироп гренадин)</span></span><span class="weight">200мл</span><span class="price">750 ₽</span></div>
+                    <div class="menu-item"><span class="name">Ядовитый заяц <span class="sub">(дынный ликёр, пюре киви, водка)</span></span><span class="weight">200мл</span><span class="price">750 ₽</span></div>
+                    <div class="menu-item"><span class="name">Эмеральд <span class="sub">(ром светлый, дынный ликёр, ананасовый сок)</span></span><span class="weight">200мл</span><span class="price">800 ₽</span></div>
+                    <div class="menu-item"><span class="name">Цитрус <span class="sub">(джин, апельсин, сок лайма, цветочный мёд)</span></span><span class="weight">200мл</span><span class="price">750 ₽</span></div>
+                    <div class="menu-item"><span class="name">Вишня-мята <span class="sub">(водка, сироп вишнёвый, сироп мятный, сок лимона)</span></span><span class="weight">200мл</span><span class="price">750 ₽</span></div>
+                </div>
+
+                <div class="menu-category">
+                    <h3><i class="fas fa-beer"></i> Пиво</h3>
+                    <div class="menu-item"><span class="name">Разливное пиво</span><span class="weight">500мл</span><span class="price">250 ₽</span></div>
+                    <div class="menu-item"><span class="name">Бутылочное пиво в ассортименте</span><span class="weight">500мл</span><span class="price">от 250 ₽</span></div>
+                </div>
+
+                <div class="menu-note">
+                    <i class="fas fa-info-circle" style="color:#1f6e41;"></i>
+                    Если у вас имеется аллергия на какие-либо продукты, пожалуйста, сообщите об этом официанту.<br>
+                    Употребление продуктов, приобретённых не в заведении, запрещено.<br>
+                    <strong>С уважением, ресторан «Эмеральд»!</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БИЗНЕС-ЛАНЧИ -->
+    <section id="lunch">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-clock"></i> Бизнес-ланчи</h2>
+            <p style="text-align:center; color:#3d5a4a; margin-bottom:20px;">Пн–Пт 12:00–15:00</p>
+            <div class="lunch-short">
+                <div class="lunch-short-item">
+                    <div class="lunch-price">550 ₽</div>
+                    <div class="lunch-desc">Цезарь с курицей/Салат с баклажаном · Тыквенный суп с креветкой/Крем-суп с белыми грибами · Чай</div>
+                </div>
+                <div class="lunch-short-item">
+                    <div class="lunch-price">700 ₽</div>
+                    <div class="lunch-desc">Цезарь с курицей/Салат с баклажаном · Борщ с пампушками и салом/Сборная солянка мясная · Чай</div>
+                </div>
+                <div class="lunch-short-item">
+                    <div class="lunch-price">560 ₽</div>
+                    <div class="lunch-desc">Цезарь с курицей/Салат с баклажаном · Антипицца Марго/С курицей и грибами · Чай</div>
+                </div>
+                <div class="lunch-short-item">
+                    <div class="lunch-price">580 ₽</div>
+                    <div class="lunch-desc">Цезарь с курицей/Салат «Нежность» · Паста с белыми грибами/Шипащая сковородка с курицей · Чай</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О НАС -->
+    <section id="about">
+        <div class="container">
+            <div class="about-mini">
+                <div class="about-mini-text">
+                    <h2><i class="fas fa-gem" style="color:#1f6e41;"></i> Ресторан в центре Ельца</h2>
+                    <p>«ЭМЕРАЛЬД» — гастрономическое пространство для тех, кто ценит вкус, атмосферу и безупречный сервис. Мы работаем с лучшими локальными продуктами, а по вечерам для вас играет живая музыка.</p>
+                </div>
+                <div class="about-mini-icons">
+                    <span><i class="fas fa-star"></i> Высокая кухня</span>
+                    <span><i class="fas fa-wine-glass"></i> Барная карта</span>
+                    <span><i class="fas fa-music"></i> Живая музыка</span>
+                    <span><i class="fas fa-utensils"></i> Бизнес-ланчи</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- АТМОСФЕРА В КАДРЕ — ГАЛЕРЕЯ -->
+    <section id="atmosphere">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-camera"></i> Атмосфера в кадре</h2>
+            <div class="atmosphere-gallery">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-31.userapi.com/s/v1/ig2/K0Eo1B0PD44g65MjerbjDASIpXtY9crkKKbrBhgcPjgDrIDqfJ1jKkycV4N7SmOYwNimFR-eH-FSxl_Q_jLAMZto.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Интерьер ресторана Эмеральд" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Уютный зал ресторана</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-49.userapi.com/s/v1/ig2/8mpWYjJ0yEuM1ztYq-OXYmTR9DSqpXs2v_BRiRT9m61iUEE_rh5OIMOALppy4cDuYubBq8Zu1ZahaM11cZ_YCEPP.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Атмосфера ресторана Эмеральд" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Изысканная подача блюд</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-25.userapi.com/s/v1/ig2/iFAN2BiRqpVi4ziKQrXOe3EDRq5cj_c_TOqQE-ricfhNs2webWqreD3QrYxtwYpV-IeYgL9TYeI20Y04nU_XZaPg.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Детали интерьера" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Детали интерьера</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-45.userapi.com/s/v1/ig2/Pa_MscnazQmOYkHMTdxOYZBJYEVcxHE00jG70MJuEX9orIxsTaTT54-Wq9zS-nTzVoLhGnT8jIUAwY9_5PG7llgy.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Вечерняя атмосфера" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Вечерняя атмосфера</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-19.userapi.com/s/v1/ig2/pXPUDnvI8160A3zKZtXloSC0IP9EDgNmb53MkMPad-CZxuLkelyA8WXTp1wOHJ5piWUaKiTRx_--raE1Y1_X3U4F.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Кухня ресторана" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Кухня ресторана</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-10.userapi.com/s/v1/ig2/nWCslx6lGoTuNRwchu15sCuOLD7sZQqpg4zdO0CNHoyyDXoTPBZJObo5GECFzMzBh1u4SkhQT8HwnPYl5kKETJMf.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Гости ресторана" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Уютные вечера</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-42.userapi.com/s/v1/ig2/gfq2-9ZhdwfsiAwc5Qyq4jkDLD7bXNF9TgOv3IbitKZ0PEDQFFmDmNkY_Tc9S0LSFndnPMAb79-IDTfRruZjEGeN.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Блюда ресторана" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Авторские блюда</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-5.userapi.com/s/v1/ig2/OLNFTMSxWto-5Xr8Z5FmsnFcIFNhkowMyDWRbEAGaTQVdz841q5Q3s5k9c7NKhSoVvvp6dDDPB2V0ERokcPfvnhg.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Интерьер ресторана" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Элегантный интерьер</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-33.userapi.com/s/v1/ig2/129UZxInxSaFPPEVl_NODXNG3oz_CtHjbzWSXZK_G7y-PiGH7IWd8AYB3XlVj4Fb9secd78ZXQHkK0MS1anRYavT.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" 
+                            alt="Атмосфера ресторана" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Атмосфера ресторана</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-35.userapi.com/s/v1/ig2/M_PCdqXVsyoVuzQnZXDfjYnC2HhxK0Pyihl7X6oLKplqnLFoYgmNNxjgLmRb2IOdISV47iH6rgms121QSqwknQRR.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707&from=bu&cs=1280x0" 
+                            alt="Интерьер ресторана" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Интерьер ресторана</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img 
+                            src="https://sun9-73.userapi.com/s/v1/ig2/fXEvHwTYkaBS9ZsG7A6SWTec4rhBa0bSZziRJptIr3LPV74dB86p8h-J3ZFH8vtA7zbWLaC7W-OV5U4MsN4Aci3L.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=psZ0ULtQvwZYFEKTWuRsXwSHopwOkxTEmHeryAspva4&cs=1920x0" 
+                            alt="Фото ресторана" 
+                            loading="lazy"
+                        >
+                        <div class="photo-caption">Фото ресторана</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОНТАКТЫ -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-phone"></i> Контакты</h2>
+            <div class="contact-row">
+                <div class="contact-info">
+                    <h3><i class="fas fa-location-dot" style="color:#1f6e41;"></i> Мы в Ельце</h3>
+                    <p><i class="fas fa-map-pin"></i> г. Елец, ул. Радиотехническая, д.10а</p>
+                    <p><i class="fas fa-clock"></i> Пн–Чт, Вс 11:00–23:00<br>Пт–Сб 11:00–01:00</p>
+                    <p><i class="fas fa-phone-alt"></i> +7 (999) 750-04-37</p>
+                    <div class="tags">
+                        <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                        <span><i class="fas fa-parking"></i> Парковка</span>
+                        <span><i class="fas fa-wheelchair"></i> Доступно</span>
+                        <span><i class="fas fa-tree"></i> Летняя веранда</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="socials">
+            <a href="https://www.instagram.com/emerald_elets?igsh=cml6ajg1aWd1MmVj" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://vk.ru/emeraldelets" target="_blank" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+        </div>
+        <p style="font-size: 0.9rem;">© 2026 Ресторан «ЭМЕРАЛЬД» · г. Елец</p>
+        <p style="font-size: 0.8rem; margin-top: 8px; opacity:0.6;"><i class="fas fa-gem"></i> Сайт создан для вдохновения</p>
+    </div>
+</footer>
+
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === "#") return;
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html> запусти
